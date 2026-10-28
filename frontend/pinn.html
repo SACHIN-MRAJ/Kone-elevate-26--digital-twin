@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KONE Elevator Digital Twin - PINN Real-Time System</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Master App Wrapper (Single Screen, Strict Non-Scrollable Fit) -->
+  <div class="app-wrapper">
+
+    <!-- Botanical Foliage Accents in Bottom Corners (Crisp Clean SVGs) -->
+    <div class="foliage-decor foliage-left">
+      <svg width="220" height="110" viewBox="0 0 220 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M-20 120 C30 85 80 75 140 35 C115 50 70 70 20 95 Z" fill="#587355" fill-opacity="0.5"/>
+        <path d="M0 120 C45 75 105 60 175 15 C145 35 95 60 40 90 Z" fill="#3e593d" fill-opacity="0.65"/>
+        <path d="M25 120 C70 80 130 70 205 30 C170 52 115 75 60 100 Z" fill="#29442a" fill-opacity="0.75"/>
+        <path d="M-10 110 C25 65 75 45 130 5 C105 28 65 52 15 80 Z" fill="#698565" fill-opacity="0.45"/>
+      </svg>
+    </div>
+    <div class="foliage-decor foliage-right">
+      <svg width="220" height="110" viewBox="0 0 220 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M240 120 C190 85 140 75 80 35 C105 50 150 70 200 95 Z" fill="#587355" fill-opacity="0.5"/>
+        <path d="M220 120 C175 75 115 60 45 15 C75 35 125 60 180 90 Z" fill="#3e593d" fill-opacity="0.65"/>
+        <path d="M195 120 C150 80 90 70 15 30 C50 52 105 75 160 100 Z" fill="#29442a" fill-opacity="0.75"/>
+        <path d="M230 110 C195 65 145 45 90 5 C115 28 155 52 205 80 Z" fill="#698565" fill-opacity="0.45"/>
+      </svg>
+    </div>
+
+    <!-- ============================================================
+         LEFT SIDEBAR NAVIGATION
+         ============================================================ -->
+    <aside class="sidebar">
+      <div>
+        <!-- Brand / Logo Area -->
+        <div class="brand-section">
+          <div class="kone-logo-box">KONE</div>
+          <div class="brand-title">Elevator Digital Twin</div>
+          <div class="brand-subtitle">Physics-Informed Neural Network (PINN)</div>
+        </div>
+
+        <!-- Navigation Menu -->
+        <nav>
+          <ul class="nav-menu">
+            <li>
+              <a href="#" class="nav-link active">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                <span>Home</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="nav-link">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
+                <span>Components</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="nav-link">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                <span>PINN Analysis</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="nav-link">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
+                <span>What-If Simulation</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="nav-link">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+                <span>Maintenance</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="nav-link">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                <span>Reports</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="nav-link">
+                <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+                <span>Settings</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      <!-- Bottom: Building Specs & Status -->
+      <div class="sidebar-bottom-group">
+        <div class="sidebar-building-card">
+          <div class="building-thumb-wrap">
+            <img src="assets/building-thumb.jpg" alt="Building A">
+          </div>
+          <div class="building-card-title">Building A</div>
+          <div class="building-card-sub">Research Tower</div>
+          <table class="building-spec-table">
+            <tbody>
+              <tr>
+                <td class="spec-label">Total Floors</td>
+                <td class="spec-value">20</td>
+              </tr>
+              <tr>
+                <td class="spec-label">Rated Load</td>
+                <td class="spec-value">1000 kg</td>
+              </tr>
+              <tr>
+                <td class="spec-label">Rated Speed</td>
+                <td class="spec-value">1.75 m/s</td>
+              </tr>
+              <tr>
+                <td class="spec-label">Motor Power</td>
+                <td class="spec-value">11 kW</td>
+              </tr>
+              <tr>
+                <td class="spec-label">Installation Year</td>
+                <td class="spec-value">2022</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- System Status Pill -->
+        <div class="system-status-pill">
+          <div class="status-pill-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="status-pill-text">
+            <span class="status-pill-label">System Status</span>
+            <span class="status-pill-value">Normal Operation</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- ============================================================
+         MAIN CONTENT AREA
+         ============================================================ -->
+    <main class="main-content">
+
+      <!-- TOP HEADER BAR -->
+      <header class="top-header">
+        <div class="header-left">
+          <!-- Dropdown 1: Building Selector -->
+          <button class="header-dropdown-btn" type="button">
+            <svg class="header-btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <span>Building A — Research Tower</span>
+            <svg class="chevron-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+
+          <!-- Dropdown 2: Elevator Selector -->
+          <button class="header-dropdown-btn" type="button">
+            <svg class="header-btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="4" y="3" width="16" height="18" rx="2"/><polyline points="12 8 9 11 15 11"/></svg>
+            <span>Elevator 01 (KONE MonoSpace 500)</span>
+            <svg class="chevron-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+
+          <!-- Live Badge -->
+          <div class="badge-live-pulse">
+            <span class="live-dot"></span>
+            <span>Live</span>
+          </div>
+        </div>
+
+        <div class="header-right">
+          <!-- Live Date & Time -->
+          <div class="datetime-block">
+            <div class="datetime-date" id="live-date">Mon, 25 Nov 2024</div>
+            <div class="datetime-time" id="live-time">10:24 AM</div>
+          </div>
+
+          <!-- Notification Bell -->
+          <button class="icon-btn-bell" title="Alerts & Notifications">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            <span class="bell-badge">3</span>
+          </button>
+
+          <!-- User Avatar Profile -->
+          <button class="user-avatar-btn" title="User Profile">
+            <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+          </button>
+        </div>
+      </header>
+
+      <!-- TOP BANNER CARD: Elevator 01 - KONE MonoSpace 500 -->
+      <section class="hero-banner-card">
+        <div class="banner-info-col">
+          <div>
+            <div class="banner-unit-label">Elevator 01</div>
+            <h1 class="banner-title">KONE MonoSpace 500</h1>
+            <div class="banner-subtitle">PINN-based Real-time Digital Twin</div>
+          </div>
+
+          <!-- 4 Stat Pills -->
+          <div class="banner-pills-row">
+            <div class="stat-pill">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="9" y1="22" x2="9" y2="2"/><line x1="15" y1="22" x2="15" y2="2"/></svg>
+              <strong>20</strong>
+              <span>Floors</span>
+            </div>
+            <div class="stat-pill">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+              <strong>1000 kg</strong>
+              <span>Rated Load</span>
+            </div>
+            <div class="stat-pill">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="9"/><polyline points="12 12 16 8"/></svg>
+              <strong>1.75 m/s</strong>
+              <span>Rated Speed</span>
+            </div>
+            <div class="stat-pill">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              <strong>11 kW</strong>
+              <span>Motor Power</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Campus Rendering Background Texture -->
+        <img src="assets/building-banner.jpg" alt="" class="banner-building-bg">
+
+        <!-- Banner Right Card 1: Current Operation Stepper -->
+        <div class="operation-stepper-card">
+          <div class="stepper-header">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="20" y2="20"/><line x1="6" y1="9" x2="6" y2="15"/></svg>
+            <span>Current Operation</span>
+          </div>
+          <div class="stepper-list">
+            <div class="stepper-step" data-step="Idle">Idle</div>
+            <div class="stepper-step" data-step="Door Opening">Door Opening</div>
+            <div class="stepper-step active" data-step="Upward Travel">Upward Travel</div>
+            <div class="stepper-step" data-step="Decelerating">Decelerating</div>
+            <div class="stepper-step" data-step="Door Closing">Door Closing</div>
+            <div class="stepper-step" data-step="Idle">Idle</div>
+          </div>
+        </div>
+
+        <!-- Banner Right Card 2: Current Floor Stats -->
+        <div class="current-floor-card">
+          <div class="floor-label">Current Floor</div>
+          <div class="current-floor-top">
+            <div class="floor-number-row">
+              <span class="floor-number-main" id="val-current-floor">8</span>
+              <span class="floor-number-total">/ 20</span>
+            </div>
+            <div class="floor-direction-circle" id="floor-arrow-indicator">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+            </div>
+          </div>
+          <div class="floor-stats-grid">
+            <div class="floor-stat-item">
+              <span class="floor-stat-label">Direction</span>
+              <span class="floor-stat-val" id="val-direction">Up</span>
+            </div>
+            <div class="floor-stat-item">
+              <span class="floor-stat-label">Speed</span>
+              <span class="floor-stat-val" id="val-speed-display">1.32 m/s</span>
+            </div>
+            <div class="floor-stat-item">
+              <span class="floor-stat-label">Target Floor</span>
+              <span class="floor-stat-val" id="val-target-floor">15</span>
+            </div>
+            <div class="floor-stat-item">
+              <span class="floor-stat-label">Today's Trips</span>
+              <span class="floor-stat-val" id="val-trips">312</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================
+           DASHBOARD 3-COLUMN BODY (Non-Scrollable Single Screen)
+           ============================================================ -->
+      <div class="dashboard-grid">
+
+        <!-- COLUMN 1: 3D Elevator Digital Twin Viewport -->
+        <section class="viewport-3d-col">
+          <!-- Clean Atrium Architectural Background -->
+          <img src="assets/shaft-clean-bg.jpg" alt="" class="shaft-background-img">
+
+          <!-- 3D WebGL Canvas Container -->
+          <div id="elevator-3d-viewport">
+            <div class="view-3d-loader">
+              <div class="spinner-ring"></div>
+              <span>Rendering 3D Digital Twin...</span>
+            </div>
+          </div>
+
+          <!-- Bottom Viewport Controls -->
+          <div class="viewport-controls-bar">
+            <span class="viewport-hint">Rotate &amp; inspect 3D components</span>
+            <button class="viewport-ctrl-btn" id="btn-reset-3d" type="button">Reset View</button>
+          </div>
+        </section>
+
+        <!-- COLUMN 2: Center Column (Telemetry + PINN Analysis + Events) -->
+        <section class="telemetry-center-col">
+
+          <!-- 1. Live Telemetry Card -->
+          <div class="telemetry-card">
+            <div class="card-header-row">
+              <div class="card-header-title-group">
+                <svg class="card-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                <span class="card-title">Live Telemetry</span>
+                <span class="card-subtitle-caption">Real-time sensor data from elevator</span>
+              </div>
+              <div class="header-actions">
+                <div class="pill-live-mini">
+                  <span class="live-dot"></span>
+                  <span>Live</span>
+                </div>
+                <button class="btn-interval-dropdown" id="btn-telemetry-interval" type="button">
+                  <span>1 s</span>
+                  <svg class="chevron-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+              </div>
+            </div>
+
+            <!-- 6 Telemetry Metrics (3x2 Grid) -->
+            <div class="telemetry-metrics-grid">
+
+              <!-- Metric 1: Motor Temperature -->
+              <div class="metric-box">
+                <div class="metric-box-top">
+                  <div class="metric-circle-icon icon-red">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"/></svg>
+                  </div>
+                  <span class="metric-label-text">Motor Temperature</span>
+                </div>
+                <div class="metric-box-middle">
+                  <div class="metric-val-unit">
+                    <span class="metric-val" id="val-motor-temp">78.4</span>
+                    <span class="metric-unit">°C</span>
+                  </div>
+                  <span class="metric-delta delta-up-red">↑ <span id="delta-motor-temp">+2.1</span></span>
+                </div>
+                <div class="metric-sparkline-wrap">
+                  <canvas id="spark-motor-temp"></canvas>
+                </div>
+              </div>
+
+              <!-- Metric 2: Motor Current -->
+              <div class="metric-box">
+                <div class="metric-box-top">
+                  <div class="metric-circle-icon icon-yellow">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                  </div>
+                  <span class="metric-label-text">Motor Current</span>
+                </div>
+                <div class="metric-box-middle">
+                  <div class="metric-val-unit">
+                    <span class="metric-val" id="val-motor-current">32.6</span>
+                    <span class="metric-unit">A</span>
+                  </div>
+                  <span class="metric-delta delta-down-green">↓ <span id="delta-motor-current">-0.8</span></span>
+                </div>
+                <div class="metric-sparkline-wrap">
+                  <canvas id="spark-motor-current"></canvas>
+                </div>
+              </div>
+
+              <!-- Metric 3: Vibration (RMS) -->
+              <div class="metric-box">
+                <div class="metric-box-top">
+                  <div class="metric-circle-icon icon-purple">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="2 12 5 12 7 6 11 18 13 8 16 14 18 12 22 12"/></svg>
+                  </div>
+                  <span class="metric-label-text">Vibration (RMS)</span>
+                </div>
+                <div class="metric-box-middle">
+                  <div class="metric-val-unit">
+                    <span class="metric-val" id="val-vibration">0.42</span>
+                    <span class="metric-unit">g</span>
+                  </div>
+                  <span class="metric-delta delta-up-red">↑ <span id="delta-vibration">+0.05</span></span>
+                </div>
+                <div class="metric-sparkline-wrap">
+                  <canvas id="spark-vibration"></canvas>
+                </div>
+              </div>
+
+              <!-- Metric 4: Car Load -->
+              <div class="metric-box">
+                <div class="metric-box-top">
+                  <div class="metric-circle-icon icon-teal">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                  </div>
+                  <span class="metric-label-text">Car Load</span>
+                </div>
+                <div class="metric-box-middle">
+                  <div class="metric-val-unit">
+                    <span class="metric-val" id="val-car-load">650</span>
+                    <span class="metric-unit">kg</span>
+                  </div>
+                  <span class="metric-delta delta-down-green">↓ <span id="delta-car-load">-20</span></span>
+                </div>
+                <div class="metric-sparkline-wrap">
+                  <canvas id="spark-car-load"></canvas>
+                </div>
+              </div>
+
+              <!-- Metric 5: Car Speed -->
+              <div class="metric-box">
+                <div class="metric-box-top">
+                  <div class="metric-circle-icon icon-orange">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                  </div>
+                  <span class="metric-label-text">Car Speed</span>
+                </div>
+                <div class="metric-box-middle">
+                  <div class="metric-val-unit">
+                    <span class="metric-val" id="val-car-speed">1.32</span>
+                    <span class="metric-unit">m/s</span>
+                  </div>
+                  <span class="metric-delta delta-up-green">↑ <span id="delta-car-speed">+0.12</span></span>
+                </div>
+                <div class="metric-sparkline-wrap">
+                  <canvas id="spark-car-speed"></canvas>
+                </div>
+              </div>
+
+              <!-- Metric 6: Ambient Temperature -->
+              <div class="metric-box">
+                <div class="metric-box-top">
+                  <div class="metric-circle-icon icon-brown">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+                  </div>
+                  <span class="metric-label-text">Ambient Temperature</span>
+                </div>
+                <div class="metric-box-middle">
+                  <div class="metric-val-unit">
+                    <span class="metric-val" id="val-ambient-temp">28.6</span>
+                    <span class="metric-unit">°C</span>
+                  </div>
+                  <span class="metric-delta delta-neutral"><span id="delta-ambient-temp">—</span></span>
+                </div>
+                <div class="metric-sparkline-wrap">
+                  <canvas id="spark-ambient-temp"></canvas>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- 2. PINN Analysis: Motor Temperature -->
+          <div class="pinn-analysis-card">
+            <div class="card-header-row">
+              <div class="card-header-title-group">
+                <svg class="card-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="3"/><path d="M12 21a9 9 0 0 0 9-9 9 9 0 0 0-9-9 9 9 0 0 0-9 9 9 9 0 0 0 9 9z"/><path d="M3.6 9h16.8"/><path d="M3.6 15h16.8"/></svg>
+                <span class="card-title">PINN Analysis — Motor Temperature</span>
+              </div>
+              <div class="legend-row">
+                <div class="legend-item">
+                  <span class="legend-dot dot-observed"></span>
+                  <span>Observed (Sensor)</span>
+                </div>
+                <div class="legend-item">
+                  <span class="legend-dot dot-pinn"></span>
+                  <span>PINN Predicted</span>
+                </div>
+                <div class="legend-item">
+                  <span class="legend-dot dot-deviation"></span>
+                  <span>Deviation</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- PINN Content Split: Multi-line chart (Left) + Explainability (Right) -->
+            <div class="pinn-content-split">
+              <div class="pinn-chart-container">
+                <canvas id="pinn-temperature-chart"></canvas>
+                <!-- Deviation increasing highlight zone -->
+                <div class="deviation-zone-overlay">
+                  <span class="deviation-zone-pill">Deviation increasing</span>
+                </div>
+              </div>
+
+              <!-- Status sidebar & "Why?" explainable AI card -->
+              <div class="pinn-status-sidebar">
+                <div class="pinn-stat-list">
+                  <div class="pinn-stat-row">
+                    <span class="pinn-stat-label">Observed</span>
+                    <span class="pinn-stat-val">84.2 °C</span>
+                  </div>
+                  <div class="pinn-stat-row">
+                    <span class="pinn-stat-label">PINN Expected</span>
+                    <span class="pinn-stat-val">76.8 °C</span>
+                  </div>
+                  <div class="pinn-stat-row">
+                    <span class="pinn-stat-label">Deviation</span>
+                    <span class="pinn-stat-val text-danger">+7.4 °C</span>
+                  </div>
+                  <div class="pinn-stat-row">
+                    <span class="pinn-stat-label">Physics Status</span>
+                    <span class="tag-abnormal">Abnormal</span>
+                  </div>
+                  <div class="pinn-stat-row">
+                    <span class="pinn-stat-label">Trend</span>
+                    <span class="pinn-stat-val text-danger">↑ Increasing</span>
+                  </div>
+                </div>
+
+                <!-- Explainable AI Box -->
+                <div class="why-card">
+                  <div class="why-header">
+                    <div class="why-circle">?</div>
+                    <span>Why?</span>
+                  </div>
+                  <div class="why-body-text">
+                    Higher thermal accumulation than predicted under current load and operating conditions.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. Recent Events & Alerts Table -->
+          <div class="recent-events-card">
+            <div class="card-header-row">
+              <div class="card-header-title-group">
+                <svg class="card-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+                <span class="card-title">Recent Events &amp; Alerts</span>
+              </div>
+              <a href="#" class="view-all-link">View All →</a>
+            </div>
+            <table class="events-table">
+              <tbody id="events-table-body">
+                <!-- Dynamically populated from ElevatorStore -->
+              </tbody>
+            </table>
+          </div>
+
+        </section>
+
+        <!-- COLUMN 3: Right Column (System Health + Forecast + AI + Actions) -->
+        <section class="right-sidebar-col">
+
+          <!-- 1. System Health Card -->
+          <div class="system-health-card">
+            <div class="card-header-title-group">
+              <svg class="card-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+              <span class="card-title">System Health</span>
+            </div>
+
+            <div class="health-content-split">
+              <!-- Radial Donut Gauge -->
+              <div class="health-donut-area">
+                <canvas id="health-gauge-chart"></canvas>
+                <div class="donut-center-text">
+                  <div class="donut-percent" id="val-overall-health">92%</div>
+                  <div class="donut-label-healthy" id="val-health-status">Healthy</div>
+                  <div class="donut-subtext">Operating within<br>normal range</div>
+                </div>
+              </div>
+
+              <!-- Subsystems Health Progress Bars with Leaf Icons -->
+              <div class="subsystems-health-list">
+                <div class="subsystem-row">
+                  <svg class="subsystem-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/></svg>
+                  <span class="subsystem-name">Traction Motor</span>
+                  <div class="subsystem-bar-wrap"><div class="subsystem-bar-fill" id="health-bar-traction_motor" style="width: 88%;"></div></div>
+                  <span class="subsystem-val" id="health-val-traction_motor">88%</span>
+                </div>
+                <div class="subsystem-row">
+                  <svg class="subsystem-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/></svg>
+                  <span class="subsystem-name">Motor Bearings</span>
+                  <div class="subsystem-bar-wrap"><div class="subsystem-bar-fill" id="health-bar-motor_bearings" style="width: 94%;"></div></div>
+                  <span class="subsystem-val" id="health-val-motor_bearings">94%</span>
+                </div>
+                <div class="subsystem-row">
+                  <svg class="subsystem-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/></svg>
+                  <span class="subsystem-name">Brake System</span>
+                  <div class="subsystem-bar-wrap"><div class="subsystem-bar-fill" id="health-bar-brake_system" style="width: 96%;"></div></div>
+                  <span class="subsystem-val" id="health-val-brake_system">96%</span>
+                </div>
+                <div class="subsystem-row">
+                  <svg class="subsystem-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/></svg>
+                  <span class="subsystem-name">Rope &amp; Pulley</span>
+                  <div class="subsystem-bar-wrap"><div class="subsystem-bar-fill" id="health-bar-rope_pulley" style="width: 91%;"></div></div>
+                  <span class="subsystem-val" id="health-val-rope_pulley">91%</span>
+                </div>
+                <div class="subsystem-row">
+                  <svg class="subsystem-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/></svg>
+                  <span class="subsystem-name">Controller</span>
+                  <div class="subsystem-bar-wrap"><div class="subsystem-bar-fill" id="health-bar-controller" style="width: 98%;"></div></div>
+                  <span class="subsystem-val" id="health-val-controller">98%</span>
+                </div>
+                <div class="subsystem-row">
+                  <svg class="subsystem-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/></svg>
+                  <span class="subsystem-name">Door System</span>
+                  <div class="subsystem-bar-wrap"><div class="subsystem-bar-fill" id="health-bar-door_system" style="width: 95%;"></div></div>
+                  <span class="subsystem-val" id="health-val-door_system">95%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. Next 60 Seconds Forecast (PINN) -->
+          <div class="forecast-card">
+            <div class="card-header-row">
+              <div class="card-header-title-group">
+                <svg class="card-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
+                <span class="card-title">Next 60 Seconds Forecast (PINN)</span>
+              </div>
+              <div class="legend-row">
+                <div class="legend-item">
+                  <span class="legend-dot dot-forecast"></span>
+                  <span>Temperature (°C)</span>
+                </div>
+                <div class="legend-item">
+                  <span class="legend-dot dot-forecast-range"></span>
+                  <span>Prediction Range</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Forecast Line Chart with "May reach 98°C" overlay -->
+            <div class="forecast-chart-container">
+              <canvas id="forecast-chart"></canvas>
+              <div class="forecast-tag-overlay">May reach 98°C</div>
+            </div>
+
+            <!-- Warning Box -->
+            <div class="forecast-alert-box">
+              <svg class="forecast-alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              <div class="forecast-alert-content">
+                <span class="forecast-alert-title">If current trend continues...</span>
+                <span class="forecast-alert-text">Temperature will reach 98°C in ~60 seconds. Risk of thermal stress, reduced efficiency and shorter lifespan.</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. AI Recommendation (PINN) -->
+          <div class="recommendation-card">
+            <div class="card-header-title-group">
+              <svg class="card-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+              <span class="card-title">AI Recommendation (PINN)</span>
+            </div>
+            <div class="rec-content-box">
+              <div class="rec-icon-circle">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+              </div>
+              <div class="rec-text-wrap">
+                <div class="rec-heading">Monitor temperature closely</div>
+                <div class="rec-body">Consider reducing load if temperature continues to rise. Inspect cooling system at next maintenance window.</div>
+              </div>
+              <button class="rec-arrow-btn" title="View Recommendation Details" type="button">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><polyline points="9 18 15 12 9 6"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- 4. Quick Actions -->
+          <div class="quick-actions-card">
+            <div class="card-header-title-group">
+              <svg class="card-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              <span class="card-title">Quick Actions</span>
+            </div>
+            <div class="actions-buttons-grid">
+              <button class="action-btn-tile primary-action" id="action-simulation" type="button">
+                <svg class="action-btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                <span>Run What-If<br>Simulation</span>
+              </button>
+              <button class="action-btn-tile" id="action-components" type="button">
+                <svg class="action-btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
+                <span>View Component<br>Details</span>
+              </button>
+              <button class="action-btn-tile" id="action-maintenance" type="button">
+                <svg class="action-btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+                <span>Schedule<br>Maintenance</span>
+              </button>
+              <button class="action-btn-tile" id="action-report" type="button">
+                <svg class="action-btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+                <span>Generate<br>Report</span>
+              </button>
+            </div>
+          </div>
+
+        </section>
+
+      </div>
+    </main>
+
+  </div>
+
+  <!-- Local Offline-Ready JavaScript Libraries -->
+  <script src="js/libs/three.min.js"></script>
+  <script src="js/libs/OrbitControls.js"></script>
+  <script src="js/libs/GLTFLoader.js"></script>
+  <script src="js/libs/chart.min.js"></script>
+
+  <!-- Embedded 3D Model Base64 fallback (guarantees model loads even on direct file:/// double-click) -->
+  <script src="js/model-data.js"></script>
+
+  <!-- Modular App Architecture -->
+  <script src="js/state.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/scene3d.js"></script>
+  <script src="js/main.js"></script>
+
+</body>
+</html>

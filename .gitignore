@@ -1,0 +1,27 @@
+# Virtual environments
+venv/
+.venv/
+env/
+*/venv/
+*/.venv/
+
+# Python bytecode & cache
+__pycache__/
+*/__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+*/.pytest_cache/
+
+# Legacy heavy prototype (contains 666MB zip and >100MB datasets)
+ELEVATOR_DIGITAL_TWIN/
+*.zip
+*.tar.gz
+*.rar
+
+# OS & Editor files
+.vscode/
+.idea/
+Thumbs.db
+Desktop.ini
+*.log
